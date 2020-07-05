@@ -1,10 +1,12 @@
+<#macro page>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Main Page</title>
+    <title>Termon</title>
 </head>
 <body>
-<h1>Main Page</h1>
+<#nested>
 </body>
 </html>
+</#macro>

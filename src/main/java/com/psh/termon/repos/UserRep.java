@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface UserRep extends CrudRepository<User, Long> {
     List<User> findByLogin(String login);
+
 }
