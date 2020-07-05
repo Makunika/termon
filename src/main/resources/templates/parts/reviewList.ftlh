@@ -1,4 +1,4 @@
-<#macro listReview reviews>
+<#macro listReview>
     <form method="post">
         <p><input type="text" name="username" placeholder="username"></p>
         <p><input type="text" name="name" placeholder="Название"></p>

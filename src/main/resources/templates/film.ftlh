@@ -5,22 +5,18 @@
 
 <@c.page>
 <@n.navbar "username" />
-    <#if film??>
-        <div>
-            <img src="${url}" alt="Нет картинки">
-            <p>
-            <h1>${film.name}</h1>
-            </p>
-            <p>
-            <h3>${film.nameEng}</h3>
-            </p>
-            <p>
-            <div>${film.year}</div>
-            </p>
-        </div>
-        <#else>
-        Ошибка!
-    </#if>
+    <div>
+        <img src="${film.url}" alt="Нет картинки">
+        <p>
+        <h1>${film.name}</h1>
+        </p>
+        <p>
+        <h3>${film.name}</h3>
+        </p>
+        <p>
+        <div>${film.year}</div>
+        </p>
+    </div>
 
-<@l.listReview "${reviews}"/>
+<@l.listReview/>
 </@c.page>
