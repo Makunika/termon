@@ -1,12 +1,15 @@
 package com.psh.termon.data;
 
 
-import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
-public class User {
+public class User implements UserDetails {
 
 
     @Id
@@ -19,6 +22,14 @@ public class User {
 
     //@Column(nullable = false)
     private String password;
+
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<UserRole> roles;
+
+    @OneToMany
+    private Set<Course> courses;
 
     public User() {
     }
@@ -44,11 +55,49 @@ public class User {
         this.login = login;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
     public String getPassword() {
         return password;
     }
 
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 }

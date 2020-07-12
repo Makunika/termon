@@ -9,6 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface UserRep extends CrudRepository<User, Long> {
-    List<User> findByLogin(String login);
-
+    //List<User> findByLogin(String login);
+    User findByLogin(String login);
 }

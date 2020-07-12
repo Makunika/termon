@@ -2,16 +2,19 @@ package com.psh.termon.service;
 
 import com.psh.termon.data.User;
 import com.psh.termon.repos.UserRep;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRep userRep;
+    private final UserRep userRep;
+
+    public UserService(UserRep userRep) {
+        this.userRep = userRep;
+    }
 
     public User addUser(User user) {
         return userRep.save(user);
@@ -24,11 +27,11 @@ public class UserService {
 
 
     public User getByName(String name) {
-        return userRep.findByLogin(name).get(0);
+        return userRep.findByLogin(name);
     }
 
 
-    public User editBank(User user) {
+    public User editUser(User user) {
         return userRep.save(user);
     }
 
@@ -37,4 +40,9 @@ public class UserService {
         return userRep.findAll();
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User user = userRep.findByLogin(s);
+        return user;
+    }
 }

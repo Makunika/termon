@@ -1,20 +1,22 @@
 <#import "parts/common.ftlh" as c>
 <#import "parts/navbar.ftlh" as n>
-
+<#import "parts/login.ftlh" as l>
 <@c.page>
-    <@n.navbar "${user}" />
+    <@n.navbar "${user.login}" />
 
-    <div><a href="/add">Добавить фильм</a></div>
+    <div>
+        <a href="/user">Мой профиль</a>
+        <@l.logout/>
+    </div>
 
-    <#list films as film>
+    <#list courses as course>
         <div>
-            <p><img src="${film.url}" alt="Нет картинки у фильма"></p>
             <p>
-            <a href="/film/${film.id}">${film.name}</a>
+            <a href="/courses/${course.id}">${course.name}</a>
             </p>
         </div>
         <#else>
-        Нет Фильмов
+        Нет курсов!
     </#list>
 
 </@c.page>
