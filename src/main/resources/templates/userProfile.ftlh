@@ -3,7 +3,7 @@
 
 
 <@c.page>
-    <@n.navbar "${user.login}" />
+    <@n.navbar />
     <div>
         <p>
         <h1>${user.login}</h1>

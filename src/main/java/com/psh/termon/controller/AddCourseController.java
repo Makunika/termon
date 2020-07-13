@@ -4,6 +4,7 @@ package com.psh.termon.controller;
 import com.psh.termon.data.Course;
 import com.psh.termon.data.User;
 import com.psh.termon.repos.CourseRep;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user/add_course")
+@PreAuthorize("hasAuthority('MODER') or hasAuthority('ADMIN')")
 public class AddCourseController {
 
     private final CourseRep courseRep;

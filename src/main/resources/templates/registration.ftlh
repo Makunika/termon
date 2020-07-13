@@ -2,7 +2,7 @@
 <#import "parts/navbar.ftlh" as n>
 
 <@c.page>
-    <@n.navbar "Пока ничего" />
+    <@n.navbar />
     <form action="/registration" method="post">
         <div><label> User Name : <input type="text" name="login"/> </label></div>
         <div><label> Password: <input type="password" name="password"/> </label></div>

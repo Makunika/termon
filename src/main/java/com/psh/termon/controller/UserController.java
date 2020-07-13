@@ -6,6 +6,7 @@ import com.psh.termon.data.Lesson;
 import com.psh.termon.data.User;
 import com.psh.termon.repos.CourseRep;
 import com.psh.termon.repos.LessonRep;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
+@PreAuthorize("hasAnyAuthority('ADMIN','MODER')")
 public class UserController {
 
     private final CourseRep courseRep;
@@ -55,26 +57,26 @@ public class UserController {
                             @RequestParam String name,
                             @RequestParam String text,
                             Model model) {
-        Optional<Course> course = courseRep.findById(Long.parseLong(course_id));
-        if (course.isEmpty()) {
+        Course course = courseRep.findById(Long.parseLong(course_id)).orElse(null);
+        if (course == null) {
             return "redirect:/user/edit/" + course_id;
         }
-        Lesson lesson = new Lesson(course.get(), text, user);
-        lesson.setName(name);
-        lesson.setNumber((long) course.get().getSize());
-        course.get().setSize(course.get().getSize() + 1);
-        Course course1 = course.get();
 
-        if (course1.getLessons() == null) {
-            Set<Lesson> lessonSet = new HashSet<>();
-            lessonSet.add(lesson);
-            course1.setLessons(lessonSet);
-        } else {
-            course1.getLessons().add(lesson);
-            course1.setLessons(course1.getLessons());
-        }
+
+        Lesson lesson = new Lesson(course, text, user);
+        lesson.setName(name);
+        course.getLessons().add(lesson);
+
+        //if (course.getLessons() == null) {
+        //    Set<Lesson> lessonSet = new HashSet<>();
+        //    lessonSet.add(lesson);
+        //    course.setLessons(lessonSet);
+        //} else {
+        //    course1.getLessons().add(lesson);
+        //    course1.setLessons(course1.getLessons());
+        //}
         lessonRep.save(lesson);
-        courseRep.save(course1);
+        courseRep.save(course);
         return "redirect:/user/edit/" + course_id;
     }
 }

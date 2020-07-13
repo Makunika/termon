@@ -31,6 +31,15 @@ public class User implements UserDetails {
     @OneToMany
     private Set<Course> courses;
 
+    public Boolean isAdmin() {
+        return roles.contains(UserRole.ADMIN);
+    }
+
+    public Boolean isModer() {
+        return roles.contains(UserRole.MODER);
+    }
+
+
     public User() {
     }
 

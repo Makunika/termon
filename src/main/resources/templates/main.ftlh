@@ -2,12 +2,9 @@
 <#import "parts/navbar.ftlh" as n>
 <#import "parts/login.ftlh" as l>
 <@c.page>
-    <@n.navbar "${user.login}" />
+    <@n.navbar />
 
-    <div>
-        <a href="/user">Мой профиль</a>
-        <@l.logout/>
-    </div>
+    <div>Курсы, на которые я подписан</div>
 
     <#list courses as course>
         <div>

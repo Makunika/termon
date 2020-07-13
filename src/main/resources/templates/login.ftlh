@@ -3,7 +3,6 @@
 <#import "parts/login.ftlh" as l>
 
 <@c.page>
-    <@n.navbar "Ничего" />
+    <@n.navbar />
     <@l.login "/login" />
-    <a href="/registration">Регистрация</a>
 </@c.page>

@@ -3,7 +3,7 @@
 
 
 <@c.page>
-    <@n.navbar "${user.login}" />
+    <@n.navbar />
     <div>
         <p>${lesson.name}</p>
         <p>${lesson.text}</p>
