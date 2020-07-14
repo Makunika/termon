@@ -1,12 +1,12 @@
 package com.psh.termon.data;
 
 
+import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class User implements UserDetails {
@@ -23,20 +23,20 @@ public class User implements UserDetails {
     //@Column(nullable = false)
     private String password;
 
-    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private Set<UserRole> roles;
+    private Set<Role> roles;
 
-    @OneToMany
-    private Set<Course> courses;
+    @OneToMany(fetch = FetchType.EAGER)
+    private Collection<Course> courses = new LinkedHashSet<>();
 
     public Boolean isAdmin() {
-        return roles.contains(UserRole.ADMIN);
+        return roles.contains(Role.ADMIN);
     }
 
     public Boolean isModer() {
-        return roles.contains(UserRole.MODER);
+        return roles.contains(Role.MODER);
     }
 
 
@@ -66,7 +66,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return getRoles();
     }
 
     public String getPassword() {
@@ -102,11 +102,23 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Set<UserRole> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<UserRole> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Collection<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Collection<Course> courses) {
+        this.courses = courses;
+    }
+
+    public Boolean isSub(Course course) {
+        return getCourses().stream().anyMatch(course1 -> course1.getId().equals(course.getId()));
     }
 }

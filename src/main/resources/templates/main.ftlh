@@ -9,7 +9,7 @@
     <#list courses as course>
         <div>
             <p>
-            <a href="/courses/${course.id}">${course.name}</a>
+            <a href="/course/${course.id}">${course.name}</a>
             </p>
         </div>
         <#else>

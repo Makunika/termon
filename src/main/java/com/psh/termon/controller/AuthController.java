@@ -3,7 +3,7 @@ package com.psh.termon.controller;
 
 
 import com.psh.termon.data.User;
-import com.psh.termon.data.UserRole;
+import com.psh.termon.data.Role;
 import com.psh.termon.repos.UserRep;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,7 +34,7 @@ public class AuthController {
             model.addAttribute("error", "User exist");
             return "registration";
         }
-        user.setRoles(Collections.singleton(UserRole.USER));
+        user.setRoles(Collections.singleton(Role.USER));
         userRep.save(user);
         return "redirect:/login";
     }

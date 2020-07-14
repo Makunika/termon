@@ -1,52 +1,65 @@
 package com.psh.termon.controller;
 
 
-import com.psh.termon.data.Lesson;
+import com.psh.termon.data.Course;
 import com.psh.termon.data.User;
 import com.psh.termon.repos.CourseRep;
-import com.psh.termon.repos.LessonRep;
 import com.psh.termon.repos.UserRep;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/courses")
+@RequestMapping("/course")
 public class CourseController {
 
-    private final UserRep userRep;
     private final CourseRep courseRep;
-    private final LessonRep lessonRep;
+    private final UserRep userRep;
 
-
-    public CourseController(UserRep userRep, CourseRep courseRep, LessonRep lessonRep) {
-        this.userRep = userRep;
+    public CourseController(CourseRep courseRep, UserRep userRep) {
         this.courseRep = courseRep;
-        this.lessonRep = lessonRep;
+        this.userRep = userRep;
     }
 
-    @GetMapping
-    private String allCourses(
+    @GetMapping("{courseId}")
+    public String showCourse(
+            @PathVariable Long courseId,
+            Model model) {
+        Course course = courseRep.findById(courseId).orElse(null);
+        model.addAttribute("course", course);
+        return "course";
+    }
+
+    @PostMapping("{courseId}")
+    public String subOrUnsubCourse(
+            @PathVariable Long courseId,
             @AuthenticationPrincipal User user,
-            Model model
-    ) {
-        model.addAttribute("user", user);
-        model.addAttribute("courses", courseRep.findByUser(user));
-        return "main";
-    }
-
-    @GetMapping("/lessons/{lesson_id}")
-    public String courseLesson(@AuthenticationPrincipal User user,
-                               @PathVariable String lesson_id,
-                               Model model) {
-        Optional<Lesson> lesson = lessonRep.findById(Long.parseLong(lesson_id));
-        model.addAttribute("lesson", lesson.orElse(null));
-        model.addAttribute("user", user);
-        return "lesson";
+            @RequestParam String type) {
+        Course course = courseRep.findById(courseId).orElse(null);
+        if (course != null) {
+            if (type.equals("sub")) {
+                user.getCourses().add(course);
+                course.getUser().add(user);
+            } else {
+                user.getCourses().remove(
+                        user.getCourses()
+                                .stream()
+                                .filter(course1 -> course1.getId().equals(course.getId()))
+                                .findFirst()
+                                .orElse(null)
+                );
+                course.getUser().remove(
+                        course.getUser()
+                                .stream()
+                                .filter(user1 -> user1.getId().equals(user.getId()))
+                                .findFirst()
+                                .orElse(null)
+                );
+            }
+            userRep.save(user);
+            courseRep.save(course);
+        }
+        return "redirect:/course/" + courseId;
     }
 }

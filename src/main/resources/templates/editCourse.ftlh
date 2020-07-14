@@ -7,13 +7,15 @@
     <div>
         <p>
         <h1>${course.name}</h1>
+        <ul>
         <#list course.lessons as lesson >
 
-            ${lesson.number}. <a href="/courses/lessons/${lesson.id}">${lesson.name}</a><br>
+            <li><a href="/courses/lessons/${lesson.id}">${lesson.name}</a></li>
 
         <#else>
             Пока уроков нет
         </#list>
+        </ul>
     </div>
 
     <form action="/user/edit/${course.id}" method="post">

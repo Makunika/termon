@@ -20,12 +20,12 @@ import java.util.Set;
 @Controller
 @RequestMapping("/user")
 @PreAuthorize("hasAnyAuthority('ADMIN','MODER')")
-public class UserController {
+public class ModerateCourseController {
 
     private final CourseRep courseRep;
     private final LessonRep lessonRep;
 
-    public UserController(CourseRep courseRep, LessonRep lessonRep) {
+    public ModerateCourseController(CourseRep courseRep, LessonRep lessonRep) {
         this.courseRep = courseRep;
         this.lessonRep = lessonRep;
     }

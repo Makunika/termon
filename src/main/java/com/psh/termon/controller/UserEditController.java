@@ -2,9 +2,8 @@ package com.psh.termon.controller;
 
 
 import com.psh.termon.data.User;
-import com.psh.termon.data.UserRole;
+import com.psh.termon.data.Role;
 import com.psh.termon.repos.UserRep;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +15,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+
 @Controller
 @RequestMapping("/users_edit")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class UserEditController {
 
     private final UserRep userRep;
@@ -40,7 +40,7 @@ public class UserEditController {
         Optional<User> user = userRep.findById(userId);
 
         model.addAttribute("user", user.orElse(null));
-        model.addAttribute("roles", UserRole.values());
+        model.addAttribute("roles", Role.values());
         return "userEdit";
     }
 
@@ -53,19 +53,19 @@ public class UserEditController {
         if (user != null) {
             user.setLogin(username);
 
-            Set<String> roles = Arrays.stream(UserRole.values())
-                    .map(UserRole::name)
+            Set<String> roles = Arrays.stream(Role.values())
+                    .map(Role::name)
                     .collect(Collectors.toSet());
 
             user.getRoles().clear();
 
             for (String key : form.keySet()) {
                 if (roles.contains(key)) {
-                    user.getRoles().add(UserRole.valueOf(key));
+                    user.getRoles().add(Role.valueOf(key));
                 }
             }
 
-            if (user.getRoles().isEmpty()) user.getRoles().add(UserRole.USER);
+            if (user.getRoles().isEmpty()) user.getRoles().add(Role.USER);
 
             userRep.save(user);
         }

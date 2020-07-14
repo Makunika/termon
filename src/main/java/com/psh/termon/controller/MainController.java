@@ -6,11 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HelloController {
+public class MainController {
 
     private final CourseRep courseRep;
 
-    public HelloController(CourseRep courseRep) {
+    public MainController(CourseRep courseRep) {
         this.courseRep = courseRep;
     }
 

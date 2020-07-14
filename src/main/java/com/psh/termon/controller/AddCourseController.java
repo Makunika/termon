@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user/add_course")
-@PreAuthorize("hasAuthority('MODER') or hasAuthority('ADMIN')")
+@PreAuthorize("hasAnyAuthority('MODER', 'ADMIN')")
 public class AddCourseController {
 
     private final CourseRep courseRep;
