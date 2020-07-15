@@ -10,9 +10,6 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany
-    private Set<User> user;
-
     @ManyToOne
     private User author;
 
@@ -46,14 +43,6 @@ public class Course {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Set<User> getUser() {
-        return user;
-    }
-
-    public void setUser(Set<User> user) {
-        this.user = user;
     }
 
     public String getName() {

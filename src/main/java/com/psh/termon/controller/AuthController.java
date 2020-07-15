@@ -5,6 +5,7 @@ package com.psh.termon.controller;
 import com.psh.termon.data.User;
 import com.psh.termon.data.Role;
 import com.psh.termon.repos.UserRep;
+import com.psh.termon.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,10 @@ import java.util.Collections;
 @Controller
 public class AuthController {
 
-    private final UserRep userRep;
+    private final UserService userService;
 
-    public AuthController(UserRep userRep) {
-        this.userRep = userRep;
+    public AuthController(UserService userService) {
+        this.userService = userService;
     }
 
 
@@ -30,12 +31,11 @@ public class AuthController {
     @PostMapping("/registration")
     public String addUser(User user, Model model)
     {
-        if (userRep.findByLogin(user.getLogin()) != null) {
+        if (userService.findByLogin(user.getLogin()) != null) {
             model.addAttribute("error", "User exist");
             return "registration";
         }
-        user.setRoles(Collections.singleton(Role.USER));
-        userRep.save(user);
+        userService.addUser(user);
         return "redirect:/login";
     }
 }

@@ -4,6 +4,7 @@ package com.psh.termon.controller;
 import com.psh.termon.data.Course;
 import com.psh.termon.data.User;
 import com.psh.termon.repos.CourseRep;
+import com.psh.termon.service.CourseService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @PreAuthorize("hasAnyAuthority('MODER', 'ADMIN')")
 public class AddCourseController {
 
-    private final CourseRep courseRep;
+    private final CourseService courseService;
 
-    public AddCourseController(CourseRep courseRep) {
-        this.courseRep = courseRep;
+    public AddCourseController(CourseService courseService) {
+        this.courseService = courseService;
     }
 
     @GetMapping
@@ -36,8 +37,7 @@ public class AddCourseController {
                             @RequestParam String nameCourse,
                             Model model) {
         Course course = new Course(user, nameCourse, null);
-        course.setSize(0);
-        courseRep.save(course);
+        courseService.addCourse(course);
         return "redirect:/user";
     }
 }

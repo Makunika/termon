@@ -28,6 +28,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    @OneToMany
+    private Collection<Answer> answers = new LinkedHashSet<>();
+
     @OneToMany(fetch = FetchType.EAGER)
     private Collection<Course> courses = new LinkedHashSet<>();
 
@@ -121,4 +124,14 @@ public class User implements UserDetails {
     public Boolean isSub(Course course) {
         return getCourses().stream().anyMatch(course1 -> course1.getId().equals(course.getId()));
     }
+
+    public Collection<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Collection<Answer> answers) {
+        this.answers = answers;
+    }
+
+
 }

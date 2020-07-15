@@ -5,7 +5,9 @@ import com.psh.termon.data.Lesson;
 import com.psh.termon.data.User;
 import com.psh.termon.repos.CourseRep;
 import com.psh.termon.repos.LessonRep;
-import com.psh.termon.repos.UserRep;
+import com.psh.termon.service.CourseService;
+import com.psh.termon.service.LessonService;
+import com.psh.termon.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,15 +21,11 @@ import java.util.Optional;
 @RequestMapping("/courses")
 public class SubCourseController {
 
-    private final UserRep userRep;
-    private final CourseRep courseRep;
-    private final LessonRep lessonRep;
+    private final LessonService lessonService;
 
 
-    public SubCourseController(UserRep userRep, CourseRep courseRep, LessonRep lessonRep) {
-        this.userRep = userRep;
-        this.courseRep = courseRep;
-        this.lessonRep = lessonRep;
+    public SubCourseController(LessonService lessonService) {
+        this.lessonService = lessonService;
     }
 
     @GetMapping
@@ -36,17 +34,7 @@ public class SubCourseController {
             Model model
     ) {
         model.addAttribute("user", user);
-        model.addAttribute("courses", courseRep.findByUser(user));
+        model.addAttribute("courses", user.getCourses());
         return "main";
-    }
-
-    @GetMapping("/lessons/{lesson_id}")
-    public String courseLesson(@AuthenticationPrincipal User user,
-                               @PathVariable String lesson_id,
-                               Model model) {
-        Optional<Lesson> lesson = lessonRep.findById(Long.parseLong(lesson_id));
-        model.addAttribute("lesson", lesson.orElse(null));
-        model.addAttribute("user", user);
-        return "lesson";
     }
 }

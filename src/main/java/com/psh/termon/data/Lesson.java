@@ -26,9 +26,11 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(Course course, String text, User autor) {
+    public Lesson(Course course, String text, String name, Long number, User autor) {
         this.course = course;
         this.text = text;
+        this.name = name;
+        this.number = number;
         this.autor = autor;
     }
 
