@@ -14,6 +14,7 @@
     <table>
         <thead>
         <tr>
+            
             <th>Login</th>
             <th>Roles</th>
             <th>Button</th>
@@ -26,7 +27,6 @@
                     <td><#list user.roles as role>${role} <#sep>,</#list></td>
                     <td><a href="/users_edit/${user.id}">Изменить</a></td>
                 </tr>
-
                 <#else>
                 Никто не найден!
             </#list>

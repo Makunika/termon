@@ -20,13 +20,21 @@ public class Course {
 
     private Integer size;
 
+    @Column(length = 500)
+    private String headerImgName;
+
+    @Column(length = 4000)
+    private String about;
+
     public Course() {
     }
 
-    public Course(User author, String name, Set<Lesson> lessons) {
+    public Course(User author, String name, Set<Lesson> lessons, String headerImgName, String about) {
         this.author = author;
         this.name = name;
         this.lessons = lessons;
+        this.headerImgName = headerImgName;
+        this.about = about;
     }
 
     public Integer getSize() {
@@ -67,5 +75,21 @@ public class Course {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public String getHeaderImgName() {
+        return headerImgName;
+    }
+
+    public void setHeaderImgName(String headerImgName) {
+        this.headerImgName = headerImgName;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

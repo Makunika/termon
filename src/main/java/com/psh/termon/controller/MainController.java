@@ -1,5 +1,6 @@
 package com.psh.termon.controller;
 
+import com.psh.termon.data.Course;
 import com.psh.termon.repos.CourseRep;
 import com.psh.termon.service.CourseService;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ public class MainController {
 
     @GetMapping("/")
     public String main(Model model) {
+
         model.addAttribute("courses", courseService.findAll());
         return "hello";
     }

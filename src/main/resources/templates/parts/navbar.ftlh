@@ -1,43 +1,38 @@
 <#include "security.ftlh">
-<#import "login.ftlh" as l>
 
 <#macro navbar>
-    <h3>navbar ${name} </h3>
-    <form action="/" method="get">
-        <button type="submit">Главная</button>
-        <input type="hidden" value="${_csrf.token}" name="_csrf">
-    </form>
-
-    <#if isAnon >
-        <form action="/registration" method="get">
-            <button type="submit">Регистрация</button>
-            <input type="hidden" value="${_csrf.token}" name="_csrf">
-        </form>
-        <form action="/login" method="get">
-            <button type="submit">Войти</button>
-            <input type="hidden" value="${_csrf.token}" name="_csrf">
-        </form>
-
-        <#else >
-            <#if isModer>
-                <form action="/user" method="get">
-                    <button type="submit">Мой профиль (для админа или модератора)</button>
-                    <input type="hidden" value="${_csrf.token}" name="_csrf">
-                </form>
+    <header class="header">
+        <div class="header_left">
+            <div class="header_logo">
+                <img src="/static/img/logo.png" alt="Логтипчик">
+            </div>
+            <nav class="header_links">
+                <a href="/" class="header_link">Каталог курсов</a>
+                <a href="/courses" class="header_link">Мои курсы</a>
+                <#if isModer>
+                <a href="/user" class="header_link">Мой профиль</a>
+                    <#if isAdmin>
+                <a href="/users_edit" class="header_link">Редактировать пользователей (для админа)</a>
+                </#if>
+                </#if>
+            </nav>
+        </div>
+        <div class="header_right">
+            <#if !isAnon>
+            <p class="header_name">${name}</p>
             </#if>
-
-            <#if isAdmin>
-                <form action="/user" method="get">
-                    <button type="submit">Мой профиль (для админа или модератора)</button>
-                    <input type="hidden" value="${_csrf.token}" name="_csrf">
-                </form>
-                <a href="/users_edit">Редактировать пользователя (для админа)</a>
-            </#if>
-
-            <form action="/courses" method="get">
-                <button type="submit">Мои курсы</button>
-                <input type="hidden" value="${_csrf.token}" name="_csrf">
+            <#if isAnon >
+            <a href="/login" class="header_in header_btn">Войти</a>
+            <form action="/registration" method="GET">
+                <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                <button type="submit" class="header_reg header_btn">Регистрация</button>
             </form>
-            <@l.logout />
-    </#if>
+            <#else>
+            <form action="/logout" method="post">
+                <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                <button type="submit" class="header_out header_btn">Выйти</button>
+            </form>
+            </#if>
+        </div>
+    </header>
 </#macro>

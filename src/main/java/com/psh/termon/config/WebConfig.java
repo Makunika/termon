@@ -1,6 +1,7 @@
 package com.psh.termon.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.mustache.MustacheTemplateAvailabilityProvider;
 import org.springframework.boot.web.servlet.view.MustacheView;
 import org.springframework.boot.web.servlet.view.MustacheViewResolver;
@@ -21,10 +22,17 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan({ "com.psh.termon.controller" })
 public class WebConfig implements WebMvcConfigurer {
 
+    @Value("${upload.path}")
+    private String uploadPath;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**")
                 .addResourceLocations("/resources/");
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("file:/" + uploadPath + "/");
     }
 
     public void addViewControllers(ViewControllerRegistry registry) {

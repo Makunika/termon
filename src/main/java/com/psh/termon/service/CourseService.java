@@ -39,4 +39,8 @@ public class CourseService {
         course.setSize(0);
         return courseRep.save(course);
     }
+
+    public void deleteCourse(Course course) {
+        courseRep.delete(course);
+    }
 }
