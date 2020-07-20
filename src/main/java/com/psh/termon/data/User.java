@@ -31,7 +31,7 @@ public class User implements UserDetails {
     @OneToMany
     private Collection<Answer> answers = new LinkedHashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Course> courses = new LinkedHashSet<>();
 
     public Boolean isAdmin() {

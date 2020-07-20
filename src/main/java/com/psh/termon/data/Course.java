@@ -1,6 +1,7 @@
 package com.psh.termon.data;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -25,6 +26,9 @@ public class Course {
 
     @Column(length = 4000)
     private String about;
+
+    @ManyToMany
+    Collection<User> subs;
 
     public Course() {
     }
@@ -91,5 +95,13 @@ public class Course {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public Collection<User> getSubs() {
+        return subs;
+    }
+
+    public void setSubs(Collection<User> subs) {
+        this.subs = subs;
     }
 }

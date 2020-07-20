@@ -23,8 +23,8 @@
         <tbody>
             <#list users as user>
                 <tr>
-                    <td>${user.login}</td>
-                    <td><#list user.roles as role>${role} <#sep>,</#list></td>
+                    <td>${user.login! "Имя null (Проверить в дб)"}</td>
+                    <td><#list user.roles as role>${role}<#sep>, <#else> null (Проверить в дб)</#list></td>
                     <td><a href="/users_edit/${user.id}">Изменить</a></td>
                 </tr>
                 <#else>
