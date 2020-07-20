@@ -16,51 +16,53 @@
 
 <@c.page>
 <@n.navbar />
-    <div>
-        <p>
-        <h1>${course.name}</h1>
-
-        <#if isAnon>
-            Для записи необходимо зарегаться
-            <#elseif isSub>
-                <form action="/course/${course.id}" method="post">
-                    <input type="hidden" value="unsub" name="type">
-                    <input type="hidden" value="${_csrf.token}" name="_csrf">
-                    <button type="submit">Отписаться</button>
-                </form>
-
-                <form action="/course/${course.id}">
-                    <input type="hidden" value="unsub">
-                    <input type="hidden" value="${_csrf.token}" name="_csrf">
-                    <button type="submit"></button>
-                </form>
-                <div class="spoiler">
-                    <label>
-                        <input type="checkbox"/>
-                        <span class="btn">Посмотреть список уроков</span>
-                        <div class="text">
-                            <#list course.lessons as lesson >
-                                <a href="/courses/lessons/${lesson.id}">${lesson.name}</a><br>
-                            <#else>
-                                Пока уроков нет
-                            </#list>
-                        </div>
-                    </label>
+    <link rel="stylesheet" href="/static/css/style_course.css">
+    <div class="content">
+        <div class="wrapper">
+            <div class="row">
+                <div class="column column_text">
+                    <h4>${course.name}</h4>
+                    <p class="about">${course.about}</p>
+                    <#if isAnon>
+                    <a href="/login" class="btn_course_start">Для записи необходимо войти в аккаунт</a>
+                    <#elseif isSub>
+                    <form action="/course/${course.id}" method="post">
+                        <input type="hidden" value="unsub" name="type">
+                        <input type="hidden" value="${_csrf.token}" name="_csrf">
+                        <button type="submit" class="btn_course_start transperent">Отписаться</button>
+                    </form>
+                    <#else>
+                     <form action="/course/${course.id}" method="post">
+                        <input type="hidden" value="sub" name="type">
+                        <input type="hidden" value="${_csrf.token}" name="_csrf">
+                        <button type="submit" class="btn_course_start transperent">Подписаться</button>
+                     </form>
+                     </#if>
                 </div>
+                <div class="column column_img">
+                    <div class="img_course">
+                        <img src="/img/${course.headerImgName}" alt="Логотип курса">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-            <#else>
-            <form action="/course/${course.id}" method="post">
-                <input type="hidden" value="sub" name="type">
-                <input type="hidden" value="${_csrf.token}" name="_csrf">
-                <button type="submit">Подписаться</button>
-            </form>
+        <#if isSub>
+            <div class="spoiler">
+                <label>
+                    <input type="checkbox"/>
+                    <span class="btn">Посмотреть список уроков</span>
+                    <div class="text">
+                        <#list course.lessons as lesson >
+                            <a href="/courses/lessons/${lesson.id}">${lesson.name}</a><br>
+                        <#else>
+                            Пока уроков нет
+                        </#list>
+                    </div>
+                </label>
+            </div>
         </#if>
     </div>
-
-
-
-
 
     <style>
         .spoiler {

@@ -13,7 +13,7 @@
 <footer class="footer">
     <h4>© Bolt team</h4>
 </footer>
-<script src="/static/js/footer.js"></script>
+<script src="/static/js/common.js"></script>
 </body>
 </html>
 </#macro>
