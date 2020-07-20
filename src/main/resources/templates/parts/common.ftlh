@@ -10,9 +10,9 @@
 <div class="content_all">
 <#nested>
 </div>
-<footer class="footer">
-    <h4>© Bolt team</h4>
-</footer>
+<#--<footer class="footer">-->
+<#--    <h4>© Bolt team</h4>-->
+<#--</footer>-->
 <script src="/static/js/common.js"></script>
 </body>
 </html>
