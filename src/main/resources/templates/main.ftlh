@@ -2,7 +2,7 @@
 <#import "parts/navbar.ftlh" as n>
 <@c.page>
     <@n.navbar />
-
+    <link rel="stylesheet" href="/static/css/style_main.css">
     <div class="content">
         <h2 id="header_courses">Курсы, на которые я подписан</h2>
         <div class="cards_courses">

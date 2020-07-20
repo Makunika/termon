@@ -121,7 +121,7 @@ a {
     color: #9eb8ff;
 }
 
-.footer {
+.footer-bottom {
     position: relative;
     left: 0;
     bottom: 0;
@@ -130,6 +130,22 @@ a {
     padding: 40px;
     text-align: center;
     background-color: #696969;
+}
+
+.footer-fix {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 40px;
+    text-align: center;
+    background-color: #696969;
+}
+
+.footer h4 {
+    font-size: 13pt;
+    font-weight: 300;
 }
 
 .footer h4 {
