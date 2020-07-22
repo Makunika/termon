@@ -17,6 +17,9 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import java.io.File;
+import java.io.IOException;
+
 @EnableWebMvc
 @Configuration
 @ComponentScan({ "com.psh.termon.controller" })
@@ -31,8 +34,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("/resources/");
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/img/**")
-                .addResourceLocations("file:/" + uploadPath + "/");
+        try {
+            registry.addResourceHandler("/img/**")
+                    .addResourceLocations("file:/" + new File(".").getCanonicalPath() + "/" + uploadPath + "/");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addViewControllers(ViewControllerRegistry registry) {

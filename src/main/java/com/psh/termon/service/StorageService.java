@@ -16,8 +16,15 @@ public class StorageService {
     private String uploadPath;
 
     public File storage(MultipartFile file) throws IOException {
-        File uploadFile = new File(uploadPath
-                + "/" + UUID.randomUUID().toString()
+
+        File uploadDir = new File(new File(".").getCanonicalPath() + "/" + uploadPath);
+
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
+
+        File uploadFile = new File(uploadDir,
+                UUID.randomUUID().toString()
                 + "_" + file.getOriginalFilename());
         file.transferTo(uploadFile);
         return uploadFile;
