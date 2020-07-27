@@ -2,19 +2,15 @@ package com.psh.termon.controller;
 
 
 import com.psh.termon.data.Course;
-import com.psh.termon.data.Lesson;
+import com.psh.termon.data.Module;
 import com.psh.termon.data.User;
-import com.psh.termon.repos.CourseRep;
-import com.psh.termon.repos.LessonRep;
 import com.psh.termon.service.CourseService;
-import com.psh.termon.service.LessonService;
+import com.psh.termon.service.ModuleService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -22,11 +18,11 @@ import java.util.Optional;
 public class ModerateCourseController {
 
     private final CourseService courseService;
-    private final LessonService lessonService;
+    private final ModuleService moduleService;
 
-    public ModerateCourseController(CourseService courseService, LessonService lessonService) {
+    public ModerateCourseController(CourseService courseService, ModuleService moduleService) {
         this.courseService = courseService;
-        this.lessonService = lessonService;
+        this.moduleService = moduleService;
     }
 
     @GetMapping
@@ -56,9 +52,9 @@ public class ModerateCourseController {
         if (course == null) {
             return "redirect:/user/edit/" + course_id;
         }
-        Lesson lesson = new Lesson(course, text,name, 1L, user);
-        lessonService.addLesson(lesson);
-        courseService.addLessonToCourse(course, lesson);
+        Module module = new Module(course, name, text, null);
+        moduleService.addModule(module);
+        courseService.addModuleToCourse(course, module);
         return "redirect:/user/edit/" + course_id;
     }
 }

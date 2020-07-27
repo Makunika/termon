@@ -2,6 +2,7 @@ package com.psh.termon.service;
 
 import com.psh.termon.data.Course;
 import com.psh.termon.data.Lesson;
+import com.psh.termon.data.Module;
 import com.psh.termon.data.User;
 import com.psh.termon.exception.NotFoundException;
 import com.psh.termon.repos.CourseRep;
@@ -26,8 +27,8 @@ public class CourseService {
         return courseRep.findById(course_id).orElseThrow(NotFoundException::new);
     }
 
-    public Course addLessonToCourse(Course course, Lesson lesson) {
-        course.getLessons().add(lesson);
+    public Course addModuleToCourse(Course course, Module module) {
+        course.getModules().add(module);
         return courseRep.save(course);
     }
 

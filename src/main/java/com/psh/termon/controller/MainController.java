@@ -1,7 +1,5 @@
 package com.psh.termon.controller;
 
-import com.psh.termon.data.Course;
-import com.psh.termon.repos.CourseRep;
 import com.psh.termon.service.CourseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

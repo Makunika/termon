@@ -17,7 +17,7 @@ public class Course {
     private String name;
 
     @OneToMany
-    private Set<Lesson> lessons;
+    private Set<Module> modules;
 
     private Integer size;
 
@@ -33,10 +33,10 @@ public class Course {
     public Course() {
     }
 
-    public Course(User author, String name, Set<Lesson> lessons, String headerImgName, String about) {
+    public Course(User author, String name, Set<Module> modules, String headerImgName, String about) {
         this.author = author;
         this.name = name;
-        this.lessons = lessons;
+        this.modules = modules;
         this.headerImgName = headerImgName;
         this.about = about;
     }
@@ -65,12 +65,12 @@ public class Course {
         this.name = name;
     }
 
-    public Set<Lesson> getLessons() {
-        return lessons;
+    public Set<Module> getModules() {
+        return modules;
     }
 
-    public void setLessons(Set<Lesson> lessons) {
-        this.lessons = lessons;
+    public void setModules(Set<Module> modules) {
+        this.modules = modules;
     }
 
     public User getAuthor() {

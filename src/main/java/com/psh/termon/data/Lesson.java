@@ -11,7 +11,7 @@ public class Lesson {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Course course;
+    private Module module;
 
     @Column(length = 3000)
     private String text;
@@ -26,8 +26,8 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(Course course, String text, String name, Long number, User autor) {
-        this.course = course;
+    public Lesson(Module module, String text, String name, Long number, User autor) {
+        this.module = module;
         this.text = text;
         this.name = name;
         this.number = number;
@@ -42,12 +42,12 @@ public class Lesson {
         this.id = id;
     }
 
-    public Course getCourse() {
-        return course;
+    public Module getModule() {
+        return module;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setModule(Module module) {
+        this.module = module;
     }
 
     public String getText() {

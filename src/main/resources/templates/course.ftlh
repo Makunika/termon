@@ -53,8 +53,8 @@
                     <input type="checkbox"/>
                     <span class="btn">Посмотреть список уроков</span>
                     <div class="text">
-                        <#list course.lessons as lesson >
-                            <a href="/courses/lessons/${lesson.id}">${lesson.name}</a><br>
+                        <#list course.modules as module >
+                            <a href="/courses/${course.id}/modules/${module.id}">${module.name}</a><br>
                         <#else>
                             Пока уроков нет
                         </#list>
