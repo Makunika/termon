@@ -1,5 +1,8 @@
 package com.psh.termon.data;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.psh.termon.views.Views;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
@@ -9,22 +12,29 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(Views.Id.class)
     private Long id;
 
     @ManyToOne
+    @JsonView(Views.MainInformation.class)
     private User author;
 
+    @JsonView(Views.IdName.class)
     private String name;
 
     @OneToMany
+    @JsonView(Views.CourseModules.class)
     private Set<Module> modules;
 
+    @JsonView(Views.MainInformation.class)
     private Integer size;
 
     @Column(length = 500)
+    @JsonView(Views.MainInformation.class)
     private String headerImgName;
 
     @Column(length = 4000)
+    @JsonView(Views.MainInformation.class)
     private String about;
 
     @ManyToMany

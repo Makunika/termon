@@ -2,6 +2,8 @@ package com.psh.termon.data;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.psh.termon.views.Views;
 
 import javax.persistence.*;
 
@@ -10,20 +12,24 @@ public class Lesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(Views.Id.class)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     private Module module;
 
     @Column(length = 3000)
+    @JsonView(Views.FullLesson.class)
     private String text;
 
+    @JsonView(Views.IdName.class)
     private String name;
 
+    @JsonView(Views.IdName.class)
     private Long number;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonView(Views.MainInformation.class)
     private User autor;
 
     public Lesson() {

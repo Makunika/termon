@@ -1,8 +1,10 @@
 package com.psh.termon.controller.rest;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.psh.termon.data.Module;
 import com.psh.termon.service.ModuleService;
+import com.psh.termon.views.Views;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,7 @@ public class RestModules {
     }
 
     @GetMapping
+    @JsonView(Views.ModuleLessons.class)
     public ResponseEntity<List<Module>> getModules(@PathVariable Long courseId) {
         List<Module> modules = moduleService.getByCourse_Id(courseId);
         if (modules == null || modules.size() <= 0) {

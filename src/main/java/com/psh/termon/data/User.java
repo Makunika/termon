@@ -2,6 +2,8 @@ package com.psh.termon.data;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.psh.termon.views.Views;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,27 +17,23 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    //@Column(length = 6, nullable = false)
+    @JsonView(Views.Id.class)
     private Long id;
 
-    //@Column(nullable = false, unique = true)
+    @JsonView(Views.IdName.class)
     private String login;
 
-    //@Column(nullable = false)
     private String password;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    @JsonIgnore
     private Set<Role> roles;
 
     @OneToMany
-    @JsonIgnore
     private Collection<Answer> answers = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JsonIgnore
     private Collection<Course> courses = new LinkedHashSet<>();
 
     public Boolean isAdmin() {

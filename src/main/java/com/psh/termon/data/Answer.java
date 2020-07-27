@@ -1,5 +1,8 @@
 package com.psh.termon.data;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.psh.termon.views.Views;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,11 +10,14 @@ public class Answer {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @JsonView(Views.Id.class)
     private Long id;
 
+    @JsonView(Views.MainInformation.class)
     private String answer;
 
     @OneToOne
+    @JsonView(Views.MainInformation.class)
     private Lesson lesson;
 
     public Answer() {
