@@ -7,5 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ModuleRep extends CrudRepository<Module, Long> {
+    //List<Module> findByCourse_Id(Long id);
     List<Module> findByCourse_Id(Long id);
 }

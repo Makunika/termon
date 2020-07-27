@@ -1,6 +1,7 @@
 package com.psh.termon.data;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,12 +27,15 @@ public class User implements UserDetails {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private Set<Role> roles;
 
     @OneToMany
+    @JsonIgnore
     private Collection<Answer> answers = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
     private Collection<Course> courses = new LinkedHashSet<>();
 
     public Boolean isAdmin() {

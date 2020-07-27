@@ -1,6 +1,8 @@
 package com.psh.termon.data;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +12,8 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Module module;
 
     @Column(length = 3000)
@@ -20,7 +23,7 @@ public class Lesson {
 
     private Long number;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User autor;
 
     public Lesson() {
