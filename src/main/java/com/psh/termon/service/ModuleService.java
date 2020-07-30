@@ -3,6 +3,7 @@ package com.psh.termon.service;
 import com.psh.termon.data.Course;
 import com.psh.termon.data.Lesson;
 import com.psh.termon.data.Module;
+import com.psh.termon.exception.NotFoundException;
 import com.psh.termon.repos.ModuleRep;
 import org.springframework.stereotype.Service;
 
@@ -30,4 +31,7 @@ public class ModuleService {
         return moduleRep.save(module);
     }
 
+    public Module getById(int moduleId) {
+        return moduleRep.findById((long) moduleId).orElseThrow(NotFoundException::new);
+    }
 }

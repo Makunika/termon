@@ -43,6 +43,12 @@ public class Lesson {
         this.autor = autor;
     }
 
+    public Lesson(String text, String name, Long number) {
+        this.text = text;
+        this.name = name;
+        this.number = number;
+    }
+
     public Long getId() {
         return id;
     }

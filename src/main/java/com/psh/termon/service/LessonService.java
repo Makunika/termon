@@ -5,6 +5,8 @@ import com.psh.termon.exception.NotFoundException;
 import com.psh.termon.repos.LessonRep;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LessonService {
 
@@ -16,6 +18,10 @@ public class LessonService {
 
     public Lesson findById(Long lesson_id) {
         return lessonRep.findById(lesson_id).orElseThrow(NotFoundException::new);
+    }
+
+    public List<Lesson> getByModule_Id(int id) {
+        return lessonRep.findByModule_Id((long) id);
     }
 
     public Lesson addLesson(Lesson lesson) {
