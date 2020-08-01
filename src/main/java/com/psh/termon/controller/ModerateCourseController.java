@@ -57,4 +57,9 @@ public class ModerateCourseController {
         courseService.addModuleToCourse(course, module);
         return "redirect:/user/edit/" + course_id;
     }
+
+    @GetMapping("modules/{id}/lessons")
+    public String editLesson(@PathVariable Integer id) {
+        return "editLessons";
+    }
 }

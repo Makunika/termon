@@ -15,7 +15,6 @@
                 <input type="password" id="password" name="password" required autocomplete="off">
                 <label for="password">Пароль</label>
             </div>
-            <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="btn"><input type="submit" value="Войти"/></div>
             <div class="registration">
                 <a href="/registration">Регистрация</a>

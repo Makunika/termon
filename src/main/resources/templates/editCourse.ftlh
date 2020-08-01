@@ -21,7 +21,6 @@
     <form action="/user/edit/${course.id}" method="post">
         <label><input type="text" placeholder="Название урока" name="name"></label>
         <label><input type="text" placeholder="Текст урока" name="text"></label>
-        <input type="hidden" value="${_csrf.token}" name="_csrf">
         <button type="submit">Создать урок</button>
     </form>
 </@c.page>

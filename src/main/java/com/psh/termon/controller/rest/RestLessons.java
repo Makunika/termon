@@ -41,10 +41,11 @@ public class RestLessons {
     }
 
     @PostMapping
-    @JsonView(Views.IdName.class)
+    @JsonView(Views.FullLesson.class)
     public ResponseEntity<Lesson> createLesson(@PathVariable Integer moduleId,
                                                @RequestBody Lesson lesson,
                                                @AuthenticationPrincipal User user) {
+
         Module module = moduleService.getById(moduleId);
         lesson.setAutor(user);
         lesson.setModule(module);
@@ -54,11 +55,19 @@ public class RestLessons {
         return ResponseEntity.ok().body(lesson);
     }
 
-    @PutMapping
-    @JsonView(Views.IdName.class)
+    //@PostMapping
+    @PutMapping("{id}")
+    @JsonView(Views.FullLesson.class)
     public ResponseEntity<Lesson> editLesson(@PathVariable Integer moduleId,
+                                             @PathVariable Integer id,
                                              @RequestBody Lesson lesson,
                                              @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok().body(lessonService.addLesson(lesson));
+
+        Lesson lessonDo = lessonService.findById(id.longValue());
+        lessonDo.setName(lesson.getName());
+        lessonDo.setNumber(lesson.getNumber());
+        lessonDo.setText(lesson.getText());
+
+        return ResponseEntity.ok().body(lessonService.addLesson(lessonDo));
     }
 }

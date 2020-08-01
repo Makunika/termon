@@ -1,6 +1,7 @@
 <#include "security.ftlh">
 
 <#macro navbar>
+    <!--<input type="hidden" name="_csrf" value="{_csrf.token}" />-->
     <header class="header">
         <div class="header_left">
             <div class="header_logo">
@@ -24,12 +25,11 @@
             <#if isAnon >
             <a href="/login" class="header_in header_btn">Войти</a>
             <form action="/registration" method="GET">
-                <input type="hidden" name="_csrf" value="${_csrf.token}" />
+
                 <button type="submit" class="header_reg header_btn">Регистрация</button>
             </form>
             <#else>
             <form action="/logout" method="post">
-                <input type="hidden" name="_csrf" value="${_csrf.token}" />
                 <button type="submit" class="header_out header_btn">Выйти</button>
             </form>
             </#if>

@@ -6,7 +6,6 @@
     <@n.navbar />
     <form action="/users_edit" method="post">
         <input type="text" placeholder="login"/>
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
         <button type="submit">Найти</button>
     </form>
 
