@@ -29,11 +29,15 @@ public class Module {
     @JsonView(Views.ModuleLessons.class)
     private Set<Lesson> lessons;
 
-    public Module(Course course, String name, String about, Set<Lesson> lessons) {
+    @JsonView(Views.MainInformation.class)
+    private Integer number;
+
+    public Module(Course course, String name, String about, Set<Lesson> lessons, Integer number) {
         this.course = course;
         this.name = name;
         this.about = about;
         this.lessons = lessons;
+        this.number = number;
     }
 
     public Module() {
@@ -77,5 +81,13 @@ public class Module {
 
     public void setLessons(Set<Lesson> lessons) {
         this.lessons = lessons;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 }

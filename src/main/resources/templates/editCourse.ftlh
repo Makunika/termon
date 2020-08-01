@@ -4,23 +4,19 @@
 
 <@c.page>
     <@n.navbar />
-    <div>
-        <p>
-        <h1>${course.name}</h1>
-        <ul>
-        <#list course.lessons as lesson >
-
-            <li><a href="/courses/lessons/${lesson.id}">${lesson.name}</a></li>
-
-        <#else>
-            Пока уроков нет
-        </#list>
-        </ul>
+    <link rel="stylesheet" href="/static/css/style_edit_modules.css">
+    <div class="content__">
+        <div class="programm_back">
+            <div class="programm content">
+                <div class="programm_item">
+                    <header class="header_programm">
+                        <h3>${course.name}</h3>
+                    </header>
+                    <ul class="content_programm">
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <form action="/user/edit/${course.id}" method="post">
-        <label><input type="text" placeholder="Название урока" name="name"></label>
-        <label><input type="text" placeholder="Текст урока" name="text"></label>
-        <button type="submit">Создать урок</button>
-    </form>
+    <script src="/static/js/edit_modules.js"></script>
 </@c.page>

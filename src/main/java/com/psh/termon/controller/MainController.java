@@ -21,7 +21,7 @@ public class MainController {
     private final LessonService lessonService;
     private final UserService userService;
 
-    private final boolean test = false;
+    private final boolean test = true;
 
     public MainController(CourseService courseService, ModuleService moduleService, LessonService lessonService, UserService userService) {
         this.courseService = courseService;
@@ -34,8 +34,8 @@ public class MainController {
     public String main(Model model) {
 
         if (test) {
-            Course course = courseService.findById(7L);
-            Module module = new Module(course, "Препроцессор", "О модуле!", new HashSet<>());
+            Course course = courseService.findById(38L);
+            Module module = new Module(course, "Препроцессор", "О модуле!", new HashSet<>(), 1);
 
             module = moduleService.addModule(module);
             course = courseService.addCourse(course);
